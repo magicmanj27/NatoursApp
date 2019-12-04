@@ -1,11 +1,19 @@
 // USER ROUTE CONTROLLERS
+const User = require('./../models/userModels.js');
+const catchAsync = require('./../utils/catchAsync.js');
 
-exports.getAllUsers = (req, res) => {
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  const users = await User.find();
+
+  // SEND RESPONSE
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!'
+    status: 'success',
+    results: users.length,
+    data: {
+      users
+    }
   });
-};
+});
 
 exports.createUser = (req, res) => {
   res.status(500).json({
